@@ -1,0 +1,1 @@
+newman run Bookings.postman_collection.json -e  BookingEnvironment.postman_environment.json -g Booking.postman_globals.json -r cli,html --reporter-html-export .

@@ -1,0 +1,777 @@
+{
+	"info": {
+		"_postman_id": "865bd621-e48f-49e6-80f7-76ae92e864da",
+		"name": "Bookings",
+		"description": "Check API documentation at https://restful-booker.herokuapp.com/apidoc/",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "MainPath",
+			"item": [
+				{
+					"name": "ViewBookings",
+					"item": [
+						{
+							"name": "Booking - GetBookingIds filter by name",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "username",
+											"value": "admin",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "password123",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "firstname",
+										"type": "text",
+										"value": ""
+									},
+									{
+										"key": "lastname",
+										"type": "text",
+										"value": ""
+									},
+									{
+										"key": "checkin",
+										"type": "text",
+										"value": ""
+									},
+									{
+										"key": "checkout",
+										"type": "text",
+										"value": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{uri}}/booking?firstname=sally&lastname=brown",
+									"host": [
+										"{{uri}}"
+									],
+									"path": [
+										"booking"
+									],
+									"query": [
+										{
+											"key": "firstname",
+											"value": "sally"
+										},
+										{
+											"key": "lastname",
+											"value": "brown"
+										}
+									]
+								},
+								"description": "Returns the ids of all the bookings that exist within the API. Can take optional query strings to search and return a subset of booking ids."
+							},
+							"response": []
+						},
+						{
+							"name": "Booking - GetBookingIds-all Id's",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "username",
+											"value": "admin",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "password123",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "firstname",
+										"value": "",
+										"type": "text"
+									},
+									{
+										"key": "lastname",
+										"value": "",
+										"type": "text"
+									},
+									{
+										"key": "checkin",
+										"value": "",
+										"type": "text"
+									},
+									{
+										"key": "checkout",
+										"value": "",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{uri}}/booking",
+									"host": [
+										"{{uri}}"
+									],
+									"path": [
+										"booking"
+									]
+								},
+								"description": "Returns the ids of all the bookings that exist within the API. Can take optional query strings to search and return a subset of booking ids."
+							},
+							"response": []
+						},
+						{
+							"name": "Booking - GetBookingIds filter by name checkin checkout",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "username",
+											"value": "admin",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "password123",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "firstname",
+										"type": "text",
+										"value": ""
+									},
+									{
+										"key": "lastname",
+										"type": "text",
+										"value": ""
+									},
+									{
+										"key": "checkin",
+										"type": "text",
+										"value": ""
+									},
+									{
+										"key": "checkout",
+										"type": "text",
+										"value": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{uri}}/booking?checkin=2019-03-13&checkout=2019-05-21",
+									"host": [
+										"{{uri}}"
+									],
+									"path": [
+										"booking"
+									],
+									"query": [
+										{
+											"key": "checkin",
+											"value": "2019-03-13"
+										},
+										{
+											"key": "checkout",
+											"value": "2019-05-21"
+										}
+									]
+								},
+								"description": "Returns the ids of all the bookings that exist within the API. Can take optional query strings to search and return a subset of booking ids."
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Ping - HealthCheck",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "46612b82-e26a-4627-88bb-f7810f21498c",
+								"exec": [
+									"tests[\"Status code is 201\"] = responseCode.code === 201;",
+									"postman.setNextRequest(\"Auth - CreateToken\")"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{uri}}/ping",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"ping"
+							]
+						},
+						"description": "A simple health check endpoint to confirm whether the API is up and running."
+					},
+					"response": []
+				},
+				{
+					"name": "Auth - CreateToken",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "cdeb9ccf-0129-4392-a144-cd6fd03ed2e2",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setGlobalVariable(\"token\", jsonData.token);",
+									"postman.setNextRequest(\"Booking - CreateBooking\")"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\" : \"admin\",\n    \"password\" : \"password123\"\n}"
+						},
+						"url": {
+							"raw": "{{uri}}/auth",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"auth"
+							]
+						},
+						"description": "Creates a new auth token to use for access to the PUT and DELETE /booking"
+					},
+					"response": []
+				},
+				{
+					"name": "Booking - CreateBooking",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c4606cbc-94b8-49bb-83d3-f532a95eec4b",
+								"exec": [
+									"",
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"var jsonData = JSON.parse(responseBody);",
+									"pm.test(\"Body contains bookingid\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"bookingid\");",
+									"});",
+									"",
+									"pm.environment.set(\"bookingid\", jsonData.bookingid);",
+									"postman.setNextRequest(\"Booking - GetBooking by id\")",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstname\" : \"Yasmina\",\n    \"lastname\" : \"Gil\",\n    \"totalprice\" : 111,\n    \"depositpaid\" : true,\n    \"bookingdates\" : {\n        \"checkin\" : \"2019-06-01\",\n        \"checkout\" : \"2019-08-01\"\n    },\n    \"additionalneeds\" : \"Breakfast\"\n}"
+						},
+						"url": {
+							"raw": "{{uri}}/booking",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"booking"
+							]
+						},
+						"description": "Creates a new booking in the API"
+					},
+					"response": []
+				},
+				{
+					"name": "Booking - GetBooking by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ee00d982-86dc-4511-b566-d3c152583c43",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"postman.setNextRequest(\"Booking - UpdateBooking\")"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{uri}}/booking/{{bookingid}}",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"booking",
+								"{{bookingid}}"
+							]
+						},
+						"description": "Returns a specific booking based upon the booking id provided"
+					},
+					"response": []
+				},
+				{
+					"name": "Booking - UpdateBooking",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ef6a09c0-8f4f-4d85-8b10-f44cec6c7c4b",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"postman.setNextRequest(\"Booking - PartialUpdateBooking\")"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "password123",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Cookie",
+								"type": "text",
+								"value": "token=",
+								"disabled": true
+							},
+							{
+								"key": "Cache-Control",
+								"type": "text",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstname\" : \"James\",\n    \"lastname\" : \"Brown\",\n    \"totalprice\" : 119,\n    \"depositpaid\" : true,\n    \"bookingdates\" : {\n        \"checkin\" : \"2018-01-01\",\n        \"checkout\" : \"2019-09-01\"\n    },\n    \"additionalneeds\" : \"Lunch\"\n}"
+						},
+						"url": {
+							"raw": "{{uri}}/booking/{{bookingid}}",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"booking",
+								"{{bookingid}}"
+							]
+						},
+						"description": "Updates a current booking"
+					},
+					"response": []
+				},
+				{
+					"name": "Booking - PartialUpdateBooking",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c7451f9f-618d-44f8-a8d8-992c8d047748",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"postman.setNextRequest(\"Booking - DeleteBooking\")"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "password123",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstname\" : \"Juan\",\n    \"lastname\" : \"Palomo\"\n}"
+						},
+						"url": {
+							"raw": "{{uri}}/booking/{{bookingid}}",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"booking",
+								"{{bookingid}}"
+							]
+						},
+						"description": "Updates a current booking with a partial payload"
+					},
+					"response": [
+						{
+							"name": "Booking - PartialUpdateBooking",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"firstname\" : \"James\",\n    \"lastname\" : \"Brown\"\n}"
+								},
+								"url": {
+									"raw": "https://restful-booker.herokuapp.com/booking/11",
+									"protocol": "https",
+									"host": [
+										"restful-booker",
+										"herokuapp",
+										"com"
+									],
+									"path": [
+										"booking",
+										"11"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Cowboy"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "170"
+								},
+								{
+									"key": "Etag",
+									"value": "W/\"aa-waBDObUc25azXZ1Gkrz0LIEDGrg\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 14 Apr 2019 13:44:23 GMT"
+								},
+								{
+									"key": "Via",
+									"value": "1.1 vegur"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"firstname\": \"James\",\n    \"lastname\": \"Brown\",\n    \"totalprice\": 111,\n    \"depositpaid\": true,\n    \"bookingdates\": {\n        \"checkin\": \"2018-01-01\",\n        \"checkout\": \"2019-01-01\"\n    },\n    \"additionalneeds\": \"Breakfast\"\n}"
+						},
+						{
+							"name": "Booking - PartialUpdateBooking-xml",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/xml",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": " application/xml",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<booking>\n    <firstname>James</firstname>\n    <lastname>Brown</lastname>\n  </booking>"
+								},
+								"url": {
+									"raw": "https://restful-booker.herokuapp.com/booking/1",
+									"protocol": "https",
+									"host": [
+										"restful-booker",
+										"herokuapp",
+										"com"
+									],
+									"path": [
+										"booking",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "xml",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Cowboy"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "339"
+								},
+								{
+									"key": "Etag",
+									"value": "W/\"153-vOafW9Y/wjyBTCkusqtZDamHm48\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 14 Apr 2019 13:30:51 GMT"
+								},
+								{
+									"key": "Via",
+									"value": "1.1 vegur"
+								}
+							],
+							"cookie": [],
+							"body": "<?xml version='1.0'?>\n<booking>\n    <firstname>Jim</firstname>\n    <lastname>Brown</lastname>\n    <totalprice>141</totalprice>\n    <depositpaid>true</depositpaid>\n    <bookingdates>\n        <checkin>2018-08-12</checkin>\n        <checkout>2019-01-12</checkout>\n    </bookingdates>\n    <additionalneeds>Breakfast</additionalneeds>\n</booking>"
+						}
+					]
+				},
+				{
+					"name": "Booking - DeleteBooking",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "acd03e61-eaf9-4458-81e4-b6d53529a43b",
+								"exec": [
+									"tests[\"Status code is 201\"] = responseCode.code === 201;",
+									"pm.test(\"Status code name has string\", function () {",
+									"    pm.response.to.have.status(\"Created\");",
+									"});",
+									"",
+									"postman.clearEnvironmentVariables()",
+									"console.log(\"All environmental variables cleared\")"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "password123",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": " application/json"
+							},
+							{
+								"key": "Cookie",
+								"type": "text",
+								"value": " token=",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{uri}}/booking/{{bookingid}}",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"booking",
+								"{{bookingid}}"
+							]
+						},
+						"description": "Returns the ids of all the bookings that exist within the API. Can take optional query strings to search and return a subset of booking ids."
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "70a78d2b-03bb-4c16-85fb-3b15a17b2afa",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "65544109-d5b0-4619-9b38-561b166e5726",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
