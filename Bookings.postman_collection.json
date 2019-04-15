@@ -218,7 +218,13 @@
 								"id": "46612b82-e26a-4627-88bb-f7810f21498c",
 								"exec": [
 									"tests[\"Status code is 201\"] = responseCode.code === 201;",
-									"postman.setNextRequest(\"Auth - CreateToken\")"
+									"",
+									"if (responseCode.code === 201) {",
+									"  postman.setNextRequest(\"Auth - CreateToken\")",
+									"} else {",
+									"    postman.setNextRequest(null)",
+									"}",
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -275,7 +281,13 @@
 									"",
 									"var jsonData = JSON.parse(responseBody);",
 									"postman.setGlobalVariable(\"token\", jsonData.token);",
-									"postman.setNextRequest(\"Booking - CreateBooking\")"
+									"",
+									"if (responseCode.code === 200) {",
+									"   postman.setNextRequest(\"Booking - CreateBooking\")",
+									"} else {",
+									"    postman.setNextRequest(null)",
+									"}",
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -335,9 +347,13 @@
 									"});",
 									"",
 									"pm.environment.set(\"bookingid\", bookingJson.bookingid);",
-									"postman.setNextRequest(\"Booking - GetBooking by id\")",
 									"",
-									""
+									"",
+									"if (responseCode.code === 200) {",
+									" postman.setNextRequest(\"Booking - GetBooking by id\")",
+									"} else {",
+									"    postman.setNextRequest(null)",
+									"}"
 								],
 								"type": "text/javascript"
 							}
@@ -410,7 +426,12 @@
 									"});",
 									"",
 									"tests[\"Status code is 200\"] = responseCode.code === 200;",
-									"postman.setNextRequest(\"Booking - UpdateBooking\")"
+									"",
+									"if (responseCode.code === 200) {",
+									" postman.setNextRequest(\"Booking - UpdateBooking\")",
+									"} else {",
+									"    postman.setNextRequest(null)",
+									"}"
 								],
 								"type": "text/javascript"
 							}
@@ -457,16 +478,18 @@
 								"exec": [
 									"eval(globals.commonTests)();",
 									"const bSchema =pm.environment.get(\"bookingSchema\"); ",
-									" ",
-									"var bookingJson = JSON.parse(responseBody);",
-									"",
+									" var bookingJson = JSON.parse(responseBody);",
 									"// Test whether the response matches the schema",
 									"pm.test('booking Schema is valid', function() {",
 									"  pm.expect(tv4.validate(bookingJson, bSchema)).to.be.true;",
 									"",
 									"});",
 									"tests[\"Status code is 200\"] = responseCode.code === 200;",
-									"postman.setNextRequest(\"Booking - PartialUpdateBooking\")"
+									"if (responseCode.code === 200) {",
+									" postman.setNextRequest(\"Booking - PartialUpdateBooking\")",
+									"} else {",
+									"    postman.setNextRequest(null)",
+									"}"
 								],
 								"type": "text/javascript"
 							}
@@ -551,7 +574,12 @@
 									"",
 									"});",
 									"tests[\"Status code is 200\"] = responseCode.code === 200;",
-									"postman.setNextRequest(\"Booking - DeleteBooking\")"
+									"",
+									"if (responseCode.code === 200) {",
+									" postman.setNextRequest(\"Booking - DeleteBooking\")",
+									"} else {",
+									"    postman.setNextRequest(null)",
+									"}"
 								],
 								"type": "text/javascript"
 							}
@@ -767,6 +795,7 @@
 									"pm.test(\"Status code name has string\", function () {",
 									"    pm.response.to.have.status(\"Created\");",
 									"});",
+									"",
 									""
 								],
 								"type": "text/javascript"
