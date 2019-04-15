@@ -222,6 +222,16 @@
 								],
 								"type": "text/javascript"
 							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "33f0b6b7-ecb5-4e61-8481-6af81d6b2cb6",
+								"exec": [
+									"console.log(\"This is a pre request script for healthcheck\")"
+								],
+								"type": "text/javascript"
+							}
 						}
 					],
 					"request": {
@@ -252,7 +262,16 @@
 							"script": {
 								"id": "cdeb9ccf-0129-4392-a144-cd6fd03ed2e2",
 								"exec": [
+									"// Save common tests in a global variable",
+									"postman.setGlobalVariable(\"commonTests\", () => {",
+									"  // The response time must be less than 500 milliseconds",
+									"  tests[\"Response time is acceptable\"] = responseTime < 500;",
+									"});",
+									"",
+									"",
+									"",
 									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
 									"",
 									"var jsonData = JSON.parse(responseBody);",
 									"postman.setGlobalVariable(\"token\", jsonData.token);",
@@ -296,15 +315,38 @@
 							"script": {
 								"id": "c4606cbc-94b8-49bb-83d3-f532a95eec4b",
 								"exec": [
+									"eval(globals.commonTests)();",
+									"const bSchema =pm.environment.get(\"bookingSchema\"); ",
+									" ",
+									"var bookingJson = JSON.parse(responseBody);",
 									"",
-									"tests[\"Status code is 200\"] = responseCode.code === 200;",
-									"var jsonData = JSON.parse(responseBody);",
+									"// Test whether the response matches the schema",
+									"pm.test('booking Schema is valid', function() {",
+									"  pm.expect(tv4.validate(bookingJson, bSchema)).to.be.true;",
+									"",
+									"});",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
 									"pm.test(\"Body contains bookingid\", function () {",
 									"    pm.expect(pm.response.text()).to.include(\"bookingid\");",
 									"});",
 									"",
-									"pm.environment.set(\"bookingid\", jsonData.bookingid);",
+									"pm.environment.set(\"bookingid\", bookingJson.bookingid);",
 									"postman.setNextRequest(\"Booking - GetBooking by id\")",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "e9c19a32-db14-4fa8-acd2-963d0d329946",
+								"exec": [
 									""
 								],
 								"type": "text/javascript"
@@ -356,6 +398,17 @@
 							"script": {
 								"id": "ee00d982-86dc-4511-b566-d3c152583c43",
 								"exec": [
+									"eval(globals.commonTests)();",
+									"const bSchema =pm.environment.get(\"bookingSchema\"); ",
+									" ",
+									"var bookingJson = JSON.parse(responseBody);",
+									"",
+									"// Test whether the response matches the schema",
+									"pm.test('booking Schema is valid', function() {",
+									"  pm.expect(tv4.validate(bookingJson, bSchema)).to.be.true;",
+									"",
+									"});",
+									"",
 									"tests[\"Status code is 200\"] = responseCode.code === 200;",
 									"postman.setNextRequest(\"Booking - UpdateBooking\")"
 								],
@@ -402,6 +455,16 @@
 							"script": {
 								"id": "ef6a09c0-8f4f-4d85-8b10-f44cec6c7c4b",
 								"exec": [
+									"eval(globals.commonTests)();",
+									"const bSchema =pm.environment.get(\"bookingSchema\"); ",
+									" ",
+									"var bookingJson = JSON.parse(responseBody);",
+									"",
+									"// Test whether the response matches the schema",
+									"pm.test('booking Schema is valid', function() {",
+									"  pm.expect(tv4.validate(bookingJson, bSchema)).to.be.true;",
+									"",
+									"});",
 									"tests[\"Status code is 200\"] = responseCode.code === 200;",
 									"postman.setNextRequest(\"Booking - PartialUpdateBooking\")"
 								],
@@ -477,6 +540,16 @@
 							"script": {
 								"id": "c7451f9f-618d-44f8-a8d8-992c8d047748",
 								"exec": [
+									"eval(globals.commonTests)();",
+									"const bSchema =pm.environment.get(\"bookingSchema\"); ",
+									" ",
+									"var bookingJson = JSON.parse(responseBody);",
+									"",
+									"// Test whether the response matches the schema",
+									"pm.test('booking Schema is valid', function() {",
+									"  pm.expect(tv4.validate(bookingJson, bSchema)).to.be.true;",
+									"",
+									"});",
 									"tests[\"Status code is 200\"] = responseCode.code === 200;",
 									"postman.setNextRequest(\"Booking - DeleteBooking\")"
 								],
@@ -689,13 +762,12 @@
 							"script": {
 								"id": "acd03e61-eaf9-4458-81e4-b6d53529a43b",
 								"exec": [
+									"eval(globals.commonTests)();",
 									"tests[\"Status code is 201\"] = responseCode.code === 201;",
 									"pm.test(\"Status code name has string\", function () {",
 									"    pm.response.to.have.status(\"Created\");",
 									"});",
-									"",
-									"postman.clearEnvironmentVariables()",
-									"console.log(\"All environmental variables cleared\")"
+									""
 								],
 								"type": "text/javascript"
 							}
